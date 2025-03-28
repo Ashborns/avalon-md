@@ -10,6 +10,7 @@ let handler = async (m, { conn, command, text, isOwner, isAdmin, isBotAdmin, par
 	let warn = db.data.chats[m.chat].warn
 	let user = m.quoted?.sender ? m.quoted.sender : m.mentionedJid?.[0] ? m.mentionedJid[0] : /cek/.test(command) ? m.sender : ''
 	if (!user) return m.reply('siapa yang mau diwarn ?')
+	if (m.sender == user && !/cek/.test(command)) return m.reply('siapa yang mau diwarn ?')
 	let ow = db.data.datas
 	let data = [conn.user.jid.split('@')[0], ...global.mods, ...ow.rowner.map(v => v[0]), ...ow.owner.map(v => v[0])].map(v => v + '@s.whatsapp.net')
 	if (data.includes(user) && !/cek/.test(command)) return m.reply(isOwner ? 'owner kekebalan tubuh' : '🥴 gaboleh gitu ama owner.')
@@ -37,6 +38,7 @@ let handler = async (m, { conn, command, text, isOwner, isAdmin, isBotAdmin, par
 		delete db.data.chats[m.chat].warn[user]
 		await delay(3500)
 		await conn.groupParticipantsUpdate(m.chat, [user], 'remove')
+		await conn.reply(m.chat, `@${m.sender.split`@`[0]} telah mengeluarkan @${split} dari grup.`, fkontak, { mentions: [m.sender, user] })
 	}
 }
 

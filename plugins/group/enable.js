@@ -301,11 +301,8 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			if (!isROwner) {
 				global.dfail('rowner', m, conn)
 				throw false
-			} else if (!m.isGroup) {
-				global.dfail('group', m, conn)
-				throw false
 			}
-			datas.fkontakbot = isEnable
+			datas.fkontaktele = isEnable
 			break
 		case 'restrict':
 			isAll = true

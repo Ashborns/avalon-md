@@ -5,6 +5,10 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 	text = text ? text : m.quoted?.text ? m.quoted.text : m.quoted?.caption ? m.quoted.caption : m.quoted?.description ? m.quoted.description : ''
 	if (!text) throw `Example : ${usedPrefix + command} Lagi Ruwet`
 	try {
+		let men = await conn.parseMention(text)
+		for (let x of men) {
+			text = text.replace('@'+x.split('@')[0], await conn.getName(x))
+		}
 		let stiker = await createSticker(`https://api.lolhuman.xyz/api/${command}?apikey=${api.lol}&text=${encodeURIComponent(text.substring(0, 151))}`, { pack: packname, author: author })
 		await conn.sendFile(m.chat, stiker, '', '', m)
 	} catch (e) {

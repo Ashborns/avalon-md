@@ -22,9 +22,8 @@ export async function before(m, { isAdmin, text, isBotAdmin }) {
 			await this.sendMsg(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.id, participant: m.sender } })
 			if (!newsletter && !danger) await this.reply(m.chat, `@${(m.sender || '')
 				.replace(/@s\.whatsapp\.net/g, '')} *terdeteksi* mengirim Link ${m.text
-				.includes('/channel/') ? 'Channel' : danger ? 'Berbahaya' : 'Group'}!`, fkontak, { mentions: [m.sender] })
+				.includes('/channel/') ? 'Channel' : danger ? 'Berbahaya' : 'Group'}!${chat.antiLinkKick ? '\nakan di kick sesaat lagi...' : ''}`, fkontak, { mentions: [m.sender] })
 			if (chat.antiLinkKick) {
-				m.reply('Anda akan di kick sesaat lagi...')
 				await delay(3000)
 				await this.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
 			}

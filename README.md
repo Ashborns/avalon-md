@@ -24,6 +24,12 @@ This is Script of WhatsApp multi device, working with [`@whiskeysockets/baileys`
 [![Grup WhatsApp](https://img.shields.io/badge/WhatsApp%20Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://cutt.ly/azamilaifu2)
 **MAX BOT : 4**
 
+## Firts, update proto to make antitagsw work
+
+```bash
+node update-proto.js
+```
+
 ## Run
 
 ```bash
