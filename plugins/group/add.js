@@ -1,6 +1,6 @@
 import db from '../../lib/database.js'
 import { delay, ranNumb } from '../../lib/func.js'
-import { getBinaryNodeChild, getBinaryNodeChildren } from '@whiskeysockets/baileys'
+import { getBinaryNodeChild, getBinaryNodeChildren } from 'baileys'
 
 let handler = async (m, { conn, text, participants }) => {
 	if (db.data.settings[conn.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
@@ -16,7 +16,7 @@ let handler = async (m, { conn, text, participants }) => {
 	}
 	if (users.length == 0) throw `@${not.join(', @')} bukan pengguna WhatsApp`
 	if (not.length > 0) m.reply(`@${not.join(', @')} bukan pengguna WhatsApp`)
-	let img = await conn.profilePictureUrl(m.chat, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
+	let img = await conn.profilePictureUrl(m.chat, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/json-db/main/avalonbot/media/avatar_contact.jpg')
 	for (let i of users) {
 		let res = await conn.groupParticipantsUpdate(m.chat, [i], 'add')
 		for (let x of res) {

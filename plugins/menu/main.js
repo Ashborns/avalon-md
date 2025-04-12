@@ -2,7 +2,7 @@ import db from '../../lib/database.js'
 import { plugins } from '../../lib/plugins.js'
 import { readMore, ranNumb, padLead, runtimes } from '../../lib/func.js'
 import { xpRange } from '../../lib/levelling.js'
-import { getDevice } from '@whiskeysockets/baileys'
+import { getDevice } from 'baileys'
 import { promises } from 'fs'
 import { join } from 'path'
 import os from 'os'
@@ -41,7 +41,7 @@ const defaultMenu = {
 let handler = async (m, { conn, usedPrefix: _p, __dirname, command, isPrems }) => {
 	try {
 		let meh = padLead(ranNumb(43), 3)
-		let nais = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${meh}.jpg`
+		let nais = `https://raw.githubusercontent.com/clicknetcafe/json-db/main/avalonbot/media/picbot/menus/menus_${meh}.jpg`
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let { limit, role, level, exp, maxexp, money, totalexp } = db.data.users[m.sender]
 		let { min, xp, max } = xpRange(level, global.multiplier)

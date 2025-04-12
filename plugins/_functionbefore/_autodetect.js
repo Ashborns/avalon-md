@@ -1,5 +1,5 @@
 import got from 'got'
-import { WAMessageStubType } from '@whiskeysockets/baileys'
+import { WAMessageStubType } from 'baileys'
 import Connection from '../../lib/connection.js'
 import db from '../../lib/database.js'
 import uploadImage from '../../lib/uploadImage.js'
@@ -43,10 +43,10 @@ export async function before(m) {
 		let chat = db.data.chats[id]
 		if (!chat.welcome) return !1
 		let meta = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
-		let bg = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${padLead(ranNumb(43), 3)}.jpg`
+		let bg = `https://raw.githubusercontent.com/clicknetcafe/json-db/main/avalonbot/media/picbot/menus/menus_${padLead(ranNumb(43), 3)}.jpg`
 		let name = await this.getName(user)
 		let namegc = await this.getName(id)
-		let ava_cont = 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg'
+		let ava_cont = 'https://raw.githubusercontent.com/clicknetcafe/json-db/main/avalonbot/media/avatar_contact.jpg'
 		let pp = await this.profilePictureUrl(user, 'image').catch(_ => ava_cont)
 		let ppgc = await this.profilePictureUrl(id, 'image').catch(_ => ava_cont)
 		let text = (add ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', chat.isBanned ? `${chat.lastmute > 0 ? `Bot sedang di mute selama :\n${(chat.mutecd - (new Date - chat.lastmute)).toTimeString()}` : `Bot lagi dalam mode nyimak ya, tunggu ownernya nyalain.`}` : (meta.desc?.toString() || '~')) : (chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])

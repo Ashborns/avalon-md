@@ -1,7 +1,7 @@
 const regex = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-	if (!args[0]) throw `Example user ${usedPrefix}${command} https://github.com/clicknetcafe/azamibot-md-multi`
+	if (!args[0]) throw `Example user ${usedPrefix}${command} https://github.com/clicknetcafe/avalon-md`
 	if (!regex.test(args[0])) throw 'Invalid repositories!'
 	try {
 		let [_, user, repo] = (args[0] || '').match(regex) || []

@@ -8,7 +8,7 @@ export async function before(m) {
 	if (m.text.toLowerCase() == 'bot') {
 		if (ranNumb(1, 2) > 1) await this.reply(m.chat, bot.getRandom())
 		else await this.sendFile(m.chat,
-			`https://github.com/clicknetcafe/Databasee/raw/main/sfx/${sfx.getRandom()}.mp3`,
+			`https://github.com/clicknetcafe/json-db/raw/main/sfx/${sfx.getRandom()}.mp3`,
 			'', '', null, true, {}, true)
 	}
 	if (m.text.toLowerCase() == 'ping') await this.reply(m.chat, ping.getRandom())

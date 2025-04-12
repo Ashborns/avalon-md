@@ -1,6 +1,6 @@
 import db from '../../lib/database.js'
 import { isNumber } from '../../lib/func.js'
-const { proto } = await (await import('@whiskeysockets/baileys')).default
+const { proto } = await (await import('baileys')).default
 
 const cooldown = 60000
 

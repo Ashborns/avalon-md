@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-const { proto } = (await import('@whiskeysockets/baileys')).default
+const { proto } = (await import('baileys')).default
 
 let handler = async (m, { conn, command, usedPrefix, text }) => {
 	let M = proto.WebMessageInfo

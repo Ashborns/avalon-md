@@ -14,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		let folder
 		if (text == 'random') folder = ['cecan','dosa'].getRandom()
 		else folder = somematch(cecan, text) ? 'cecan' : somematch(dosa, text) ? 'dosa' : 'image'
-		let anu = await (await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/${folder}/${text.replace('random','cecan')}.json`)).json()
+		let anu = await (await fetch(`https://raw.githubusercontent.com/clicknetcafe/json-db/main/${folder}/${text.replace('random','cecan')}.json`)).json()
 		await conn.sendButton(m.chat, `Cecan > ${text}`, pauthor, anu.getRandom(), [[text, usedPrefix+text]], m)
 	} catch (e) {
 		console.log(e)

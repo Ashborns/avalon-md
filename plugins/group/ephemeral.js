@@ -1,5 +1,5 @@
 import { someincludes, somematch } from '../../lib/func.js'
-import pkg from '@whiskeysockets/baileys';
+import pkg from 'baileys';
 const { WA_DEFAULT_EPHEMERAL, groupToggleEphemeral } = pkg;
 
 let handler = async (m, { conn, text, usedPrefix, isAdmin, isOwner, command }) => {

@@ -12,14 +12,14 @@ import { format } from 'util'
 import { plugins } from './lib/plugins.js'
 import { smsg } from './lib/simple.js'
 
-/** @type {import('@whiskeysockets/baileys')} */
-const { getContentType } = (await import('@whiskeysockets/baileys')).default
+/** @type {import('baileys')} */
+const { getContentType } = (await import('baileys')).default
 
 const isNumber = x => typeof x === 'number' && !isNaN(x)
 /**
  * Handle messages upsert
  * @this {import('./lib/connection').Socket}
- * @param {import('@whiskeysockets/baileys').BaileysEventMap<unknown>['messages.upsert']} chatUpdate
+ * @param {import('baileys').BaileysEventMap<unknown>['messages.upsert']} chatUpdate
  */
 export async function handler(chatUpdate) {
 	this.msgqueque = this.msgqueque || new Queque()
@@ -519,6 +519,8 @@ export async function handler(chatUpdate) {
 					if (!('antitagsw' in chat)) chat.antitagsw = false
 					if (!('nsfw' in chat)) chat.nsfw = false
 					if (!('autonsfw' in chat)) chat.autonsfw = false
+					if (!('autonsfwstart' in chat)) chat.autonsfwstart = ''
+					if (!('autonsfwend' in chat)) chat.autonsfwend = ''
 					if (!('pdf' in chat)) chat.pdf = false
 					if (!('game' in chat)) chat.game = false
 					if (!('simi' in chat)) chat.simi = false
@@ -557,6 +559,8 @@ export async function handler(chatUpdate) {
 					antitagsw: false,
 					nsfw: false,
 					autonsfw: false,
+					autonsfwstart: '',
+					autonsfwend: '',
 					pdf: false,
 					game: false,
 					simi: false,
@@ -1006,7 +1010,7 @@ export async function handler(chatUpdate) {
 /**
  * Handle groups participants update
  * @this {import('./lib/connection').Socket}
- * @param {import('@whiskeysockets/baileys').BaileysEventMap<unknown>['group-participants.update']} groupsUpdate 
+ * @param {import('baileys').BaileysEventMap<unknown>['group-participants.update']} groupsUpdate 
  */
 export async function participantsUpdate({ id, participants, action }) {
 	if (opts['self']) return
@@ -1017,7 +1021,7 @@ export async function participantsUpdate({ id, participants, action }) {
 /**
  * Handle groups update
  * @this {import('./lib/connection').Socket}
- * @param {import('@whiskeysockets/baileys').BaileysEventMap<unknown>['groups.update']} groupsUpdate 
+ * @param {import('baileys').BaileysEventMap<unknown>['groups.update']} groupsUpdate 
  */
 export async function groupsUpdate(groupsUpdate) {
 	if (opts['self'])
@@ -1038,7 +1042,7 @@ export async function groupsUpdate(groupsUpdate) {
 
 /**
  * @this {import('./lib/connection').Socket}
- * @param {import('@whiskeysockets/baileys').BaileysEventMap<unknown>['messages.delete']} message 
+ * @param {import('baileys').BaileysEventMap<unknown>['messages.delete']} message 
  */
 export async function deleteUpdate(message) {
 

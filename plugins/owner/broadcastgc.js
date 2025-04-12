@@ -1,6 +1,6 @@
 import { delay, ranNumb, padLead } from '../../lib/func.js'
 import db from '../../lib/database.js'
-const { proto } = await (await import('@whiskeysockets/baileys')).default
+const { proto } = await (await import('baileys')).default
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let groups = Object.values(await conn.groupFetchAllParticipating()).filter(v => v.participants.find(v => v.id == conn.user.jid) != undefined)
@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (mime) img = await q.download()
 	m.reply(`_Mengirim pesan broadcast ke ${groups.length} chat_`)
 	let teks = `_*「 BroadCast-Bot 」*_${!text ? '' : ('\n\n'+text)}`
-	if (/audio/.test(mime)) thumb = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${padLead(ranNumb(43), 3)}.jpg`
+	if (/audio/.test(mime)) thumb = `https://raw.githubusercontent.com/clicknetcafe/json-db/main/avalonbot/media/picbot/menus/menus_${padLead(ranNumb(43), 3)}.jpg`
 	for (let x of groups) {
 		if (x.announce && !x.participants.find(v => v.id == conn.user.jid).admin) console.log(x.id+'\ngroup closed / bot not admin')
 		else {

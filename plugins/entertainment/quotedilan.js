@@ -3,7 +3,7 @@ import { delay, pickRandom } from '../../lib/func.js'
 let handler = async (m, { conn, usedPrefix, command }) => {
 	await delay(2000)
 	try {
-		let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/databasebot/main/Random/dilan.json`)
+		let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/json-db/main/text/dilan.json`)
 		let anu = pickRandom(await res.json())
 		m.reply(anu)
 	} catch (e) {

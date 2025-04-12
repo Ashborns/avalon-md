@@ -89,18 +89,18 @@ const startTBot = (attempts = 0) => {
 				msg.caption_entities.filter(v => v.url).forEach(v => { arr.push(v) })
 			arr = arr.filter(v => !v.url?.includes('t.me')).map(z => z.url)
 			if (arr.length > 0 && !/\d\.\d\.\d(?=\s\(current\))/gi.test(txt)) txt += '\n\n*[embedded link] :*\n- '+arr.join('\n- ')
+			let quoo = db.data.datas.fkontaktele ? fkontakbot : null
 			if (msg.forward_origin) {
-				if (!y) {
+				if (!y && quoo) {
 					let f = msg.forward_origin
 					let h = /hidden/.test(f.type)
-					txt = `- *${h ? 'hidden_user' : f.chat ? (f.chat.username || f.chat.type) : (f.sender_user?.username || f.sender_chat?.type || `hidden_${f.type}`)}`
-					+ `*${txt ? '\n\n'+txt : ''}`
-				} else txt = ''
+					txt = `- *${h ? 'hidden_user' : f.chat ? (f.chat.username || f.chat.type) : (f.sender_user?.username || f.sender_chat?.type || `hidden_${f.type}`)}*`
+					+ `${txt ? '\n\n'+txt : ''}`
+				} else txt = txt || ''
 			}
-			let quoo, id = msg.photo ? msg.photo.pop().file_id : msg[obj[0]]?.file_id
+			let id = msg.photo ? msg.photo.pop().file_id : msg[obj[0]]?.file_id
 			if (txt) txt = txt.replace(/  +/g, ' ').replace(/\n\*?News Channel\*? \*?-\*? \*?Join Discussion Group\*?/g, '')
 			do {
-				quoo = db.data.datas.fkontaktele ? fkontakbot : null
 				if (obj.length > 0) {
 					let url = await ctx.telegram.getFileLink(id)
 					let fileName = msg.document?.file_name || url.pathname.split('/').pop()
@@ -154,39 +154,49 @@ const handleReconnect = (attempts) => {
 	} while (attempts < MAX_ATTEMPTS)
 }
 
-const nsfw_on = async () => {
+// set .autonsfwstart, .autonsfwend.., then .on autonsfw
+cron.schedule('0,30 21-23,0 * * *', async () => {
+	const now = new Date();
+	const hour = String(now.getHours()).padStart(2, '0');
+	const minute = String(now.getMinutes()).padStart(2, '0');
+	const timeKey = `${hour}:${minute}`;
 	try {
 		const group = Object.values(await conn.groupFetchAllParticipating())
 			.filter(v => !v.isCommunity).filter(v => !v.isCommunityAnnounce)
 		for (let x of group) {
 			if (db.data.chats[x.id].autonsfw) {
-				db.data.chats[x.id].nsfw = true
-				await conn.reply(x.id, '*nsfw* otomatis di *nyalakan* untuk grup ini', fkontakbot)
+				let timer = db.data.chats[x.id].autonsfwstart
+				if (timeKey == timer) {
+					db.data.chats[x.id].nsfw = true
+					await conn.reply(x.id, `[ ${timer} ]\n*nsfw* otomatis di *nyalakan* untuk grup ini`, fkontakbot)
+				}
 			}
 		}
 	} catch (e) {
 		console.log(e)
 	}
-};
-
-const nsfw_off = async () => {
+});
+cron.schedule('0,30 1-6 * * *', async () => {
+	const now = new Date();
+	const hour = String(now.getHours()).padStart(2, '0');
+	const minute = String(now.getMinutes()).padStart(2, '0');
+	const timeKey = `${hour}:${minute}`;
 	try {
 		const group = Object.values(await conn.groupFetchAllParticipating())
 			.filter(v => !v.isCommunity).filter(v => !v.isCommunityAnnounce)
 		for (let x of group) {
 			if (db.data.chats[x.id].autonsfw) {
-				db.data.chats[x.id].nsfw = false
-				await conn.reply(x.id, '*nsfw* otomatis di *matikan* untuk grup ini', fkontakbot)
+				let timer = db.data.chats[x.id].autonsfwend
+				if (timeKey == timer) {
+					db.data.chats[x.id].nsfw = false
+					await conn.reply(x.id, `[ ${timer} ]\n*nsfw* otomatis di *matikan* untuk grup ini`, fkontakbot)
+				}
 			}
 		}
 	} catch (e) {
 		console.log(e)
 	}
-};
-
-// Schedule the task for autonsfw
-cron.schedule('30 21 * * *', nsfw_on); // Every day at 21:30
-cron.schedule('0 6 * * *', nsfw_off);  // Every day at 06:00
+});
 
 startTBot()
 protoType()

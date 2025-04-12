@@ -17,9 +17,9 @@ export async function before(m) {
 		let img, name = await this.getName(m.sender)
 		let txt = `Selamat 🥳, anda telah naik level!\n\n• 🧬 *Level Up : ${before} -> ${user.level}*\n_semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_`
 		let meh = padLead(ranNumb(43), 3)
-		let nais = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${meh}.jpg`
+		let nais = `https://raw.githubusercontent.com/clicknetcafe/json-db/main/avalonbot/media/picbot/menus/menus_${meh}.jpg`
 		try {
-			let pp = await this.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
+			let pp = await this.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/json-db/main/avalonbot/media/avatar_contact.jpg')
 			let ana = await uploadImage(await got(pp).buffer())
 			await this.sendFile(m.chat, `https://api.siputzx.my.id/api/canvas/level-up?backgroundURL=${nais}&avatarURL=${ana}&fromLevel=${before}&toLevel=${user.level}&name=${name}`, '', txt, m)
 		} catch {

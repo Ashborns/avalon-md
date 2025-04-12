@@ -8,10 +8,10 @@ import { ranNumb, padLead } from '../../lib/func.js'
 let handler = async (m, { conn }) => {
 	let user = db.data.users[m.sender]
 	let name = await conn.getName(m.sender)
-	let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
+	let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/json-db/main/avalonbot/media/avatar_contact.jpg')
 	let ana = await uploadImage(await got(pp).buffer())
 	let meh = padLead(ranNumb(43), 3)
-	let nais = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${meh}.jpg`
+	let nais = `https://raw.githubusercontent.com/clicknetcafe/json-db/main/avalonbot/media/picbot/menus/menus_${meh}.jpg`
 	if (!canLevelUp(user.level, user.exp, global.multiplier)) {
 		let { min, xp, max } = xpRange(user.level, global.multiplier)
 		let txt = `Level *${user.level} (${user.exp - min}/${xp})*\nKurang *${max - user.exp}* lagi!`

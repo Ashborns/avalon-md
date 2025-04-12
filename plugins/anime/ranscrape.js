@@ -2,7 +2,7 @@ import { sticker } from '../../lib/sticker.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
-		let anu = await (await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/anime/${command}.json`)).json()
+		let anu = await (await fetch(`https://raw.githubusercontent.com/clicknetcafe/json-db/main/anime/${command}.json`)).json()
 		if (command == 'loli' && text == 'mp4') anu = anu.filter(v => v.endsWith('raw=true')).getRandom()
 		else anu = anu.getRandom()
 		if (!anu) throw Error('error : no url')

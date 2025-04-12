@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { areJidsSameUser } from '@whiskeysockets/baileys'
+import { areJidsSameUser } from 'baileys'
 
 let handler = async (m, { conn, args }) => {
 	let group = m.chat

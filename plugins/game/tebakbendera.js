@@ -13,7 +13,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 	if (usr.limit < 1 && usr.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
 	else if (usr.limit > 0 && !isPrems) usr.limit -= 1
 	try {
-		json = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/games/tebakbendera.json')).json()
+		json = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/json-db/main/games/tebakbendera.json')).json()
 	} catch (e) {
 		console.log(e)
 		return m.reply(e.message)

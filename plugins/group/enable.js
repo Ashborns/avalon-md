@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import pkg from '@whiskeysockets/baileys';
+import pkg from 'baileys';
 const { proto, WA_DEFAULT_EPHEMERAL, groupToggleEphemeral } = pkg;
 
 let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, isAdmin, isROwner }) => {
@@ -85,6 +85,12 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 				throw false
 			} else if (!isBotAdmin) {
 				global.dfail('botAdmin', m, conn)
+				throw false
+			} else if (!chat.autonsfwstart) {
+				m.reply(`*atur start terlebih dahulu!*\n\n${usedPrefix}autonsfwstart <timer>`)
+				throw false
+			} else if (!chat.autonsfwend) {
+				m.reply(`*atur end terlebih dahulu!*\n\n${usedPrefix}autonsfwend <timer>`)
 				throw false
 			}
 			chat.autonsfw = isEnable
@@ -370,7 +376,8 @@ Example :
 `.trim())
 			throw false
 	}
-	let msg = await conn.reply(m.chat, `*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk grup ini'}${(isEnable && type == 'autonsfw') ? '\n\naktif pukul 21:30, nonaktif pukul 06:00 (localtime)' : ''}`, m)
+	let now = ` (GMT+${-new Date().getTimezoneOffset() / 60})`
+	let msg = await conn.reply(m.chat, `*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk grup ini'}${(isEnable && type == 'autonsfw') ? `\n\n*aktif* pukul ${chat.autonsfwstart+now}\n*nonaktif* pukul ${chat.autonsfwend+now}` : ''}`, m)
 	if (/self|admin|owner/.test(type)) {
 		let pin = type == 'self' ? db.data.datas.pinmsg : db.data.chats[m.chat].pinmsg
 		if (isEnable) pin[type] = msg.key

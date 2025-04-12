@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-const { proto } = await (await import('@whiskeysockets/baileys')).default
+const { proto } = await (await import('baileys')).default
 
 export async function before(m, { isAdmin, isBotAdmin }) {
 	if (m.isGroup) {

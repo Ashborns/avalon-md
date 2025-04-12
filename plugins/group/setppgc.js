@@ -1,5 +1,5 @@
 import jimp_1 from 'jimp'
-import { S_WHATSAPP_NET } from '@whiskeysockets/baileys'
+import { S_WHATSAPP_NET } from 'baileys'
 
 let handler = async (m, { conn, command, usedPrefix }) => {
 	let q = m.quoted ? m.quoted : m
